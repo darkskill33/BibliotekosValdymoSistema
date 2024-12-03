@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Registered Users";
+    var users = ViewBag.Users as List<string>;
+}
+
+<h2>Registered Users</h2>
+
+@if (users != null && users.Any())
+{
+    <ul>
+        @foreach (var user in users)
+        {
+            <li>@user</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No users found.</p>
+}

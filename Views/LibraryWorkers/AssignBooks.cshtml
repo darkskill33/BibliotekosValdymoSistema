@@ -1,0 +1,52 @@
+﻿@model BibliotekosValdymoSistema.Models.LibraryWorker
+
+<h2>Assign Books to @Model.User.FirstName @Model.User.LastName</h2>
+
+<form asp-action="AssignBooks" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="text-center">
+        <label>Select Books:</label>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" style="margin: 0 auto; width: 50%;">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Books != null)
+                    {
+                        @foreach (var book in ViewBag.Books as List<BibliotekosValdymoSistema.Models.Book>)
+                        {
+                            <tr>
+                                <td>
+                                    <input class="form-check-input" type="checkbox" name="bookIds" value="@book.Id"
+                                    @(Model.Books.Any(b => b.Id == book.Id) ? "checked" : "") />
+                                </td>
+                                <td>@book.Title</td>
+                                <td>@book.Author</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center">No books available for selection.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <button type="submit" class="btn btn-primary">Assign Books</button>
+        <a asp-controller="LibraryWorkers" asp-action="Index" class="btn btn-dark">
+            Go Back
+        </a>
+    </div>
+</form>

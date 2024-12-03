@@ -1,0 +1,23 @@
+﻿<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center">Login</h2>
+            <form asp-action="Login" method="post">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" />
+                </div>
+                <div class="form-group text-center">
+                    <input type="submit" value="Login" class="btn btn-primary btn-block mb-3 mt-3" />
+                </div>
+            </form>
+            <div class="text-center">
+                <a asp-action="Register" class="btn btn-info">Register</a>
+            </div>
+        </div>
+    </div>
+</div>

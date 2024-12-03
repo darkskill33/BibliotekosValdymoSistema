@@ -1,0 +1,59 @@
+﻿@model IEnumerable<BibliotekosValdymoSistema.Models.LibraryWorker>
+
+@{
+    ViewData["Title"] = "Library Workers";
+}
+
+<div class="text-left">
+    <!-- Button to navigate to Books Index -->
+    <a asp-controller="Books" asp-action="Index" class="btn btn-light">
+        Home
+    </a>
+</div>
+
+<h2 class="text-center mb-4">Library Workers</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover text-center">
+        <thead class="thead-light">
+            <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date of Birth</th>
+                <th>Last Login</th>
+                <th>Salary</th>
+                <th>Assigned Books</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var worker in Model)
+            {
+                <tr>
+                    <td>@worker.User.Username</td>
+                    <td>@worker.User.FirstName</td>
+                    <td>@worker.User.LastName</td>
+                    <td>@worker.DateOfBirth.ToShortDateString()</td>
+                    <td>@worker.LastLogin.ToShortDateString()</td>
+                    <td>@worker.Salary.ToString("C")</td>
+                    <td>
+                        @if (worker.Books != null && worker.Books.Any())
+                        {
+                            <span>@worker.Books.Count()</span>
+                        }
+                        else
+                        {
+                            <span>No books assigned</span>
+                        }
+                    </td>
+                    <td class="d-flex justify-content-center">
+                        <a asp-action="AssignBooks" asp-route-id="@worker.Id" class="btn btn-secondary btn-sm mx-1">Assign Books</a>
+                        <a asp-action="ViewBooks" asp-route-id="@worker.Id" class="btn btn-info btn-sm mx-1">View Books</a>
+                        <a asp-action="WorkCalendar" asp-route-id="@worker.Id" class="btn btn-warning btn-sm mx-1">Work Calendar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

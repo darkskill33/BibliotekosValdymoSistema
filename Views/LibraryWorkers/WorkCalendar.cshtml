@@ -1,0 +1,46 @@
+﻿@model BibliotekosValdymoSistema.Models.LibraryWorker
+
+@{
+    ViewData["Title"] = "Work Calendar for " + Model.User.FirstName + " " + Model.User.LastName;
+}
+
+<h2 class="text-center">Work Calendar</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+            <!-- Adjust the width as needed -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Work Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.WorkDays != null && ViewBag.WorkHoursSchedule != null)
+                    {
+                        foreach (var day in ViewBag.WorkDays)
+                        {
+                            <tr>
+                                <td>@day</td>
+                                <td>@ViewBag.WorkHoursSchedule[day]</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="2">No work schedule available.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <a asp-action="Index" class="btn btn-secondary">Previous page</a>
+</div>
+

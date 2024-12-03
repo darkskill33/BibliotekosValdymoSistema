@@ -1,0 +1,71 @@
+﻿@model IEnumerable<BibliotekosValdymoSistema.Models.Book>
+@{
+    // Ensure that ViewBag.IsLoggedIn is treated as a boolean with a default value of false
+    bool isLoggedIn = ViewBag.IsLoggedIn != null && (bool)ViewBag.IsLoggedIn;
+    string userName = ViewBag.UserName as string;
+}
+
+<h2>Library Books</h2>
+
+<!-- Login/Logout Option -->
+<div>
+    @if (isLoggedIn)
+    {
+        <span>You have logged in - </span>
+        <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-link">Logout</button>
+        </form>
+    }
+    else
+    {
+        <a asp-controller="Account" asp-action="Login" class="btn btn-primary mb-3">Login</a>
+    }
+</div>
+
+<!-- Link to Library Workers Page -->
+<div>
+    <a asp-controller="LibraryWorkers" asp-action="Index" class="btn btn-secondary mb-3">View Library Workers</a>
+</div>
+
+<!-- Search Form -->
+<form asp-controller="Books" asp-action="Index">
+    <p>
+        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
+<!-- Books Table -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Published Year</th>
+            <th>Is Reserved?</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.Genre</td>
+                <td>@book.PublishedYear</td>
+                <td>@book.IsReserved</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@book.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@book.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@book.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-info mb-3">Add New Book</a>
+
+<br><a asp-controller="Account" asp-action="ShowAllUsers" class="btn btn-success">Show All Registered Users</a></br>

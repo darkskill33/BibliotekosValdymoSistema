@@ -1,0 +1,30 @@
+﻿@model BibliotekosValdymoSistema.Models.Book
+
+<h2>Book Details</h2>
+
+<p>Title: @Model.Title</p>
+<p>Author: @Model.Author</p>
+<p>Genre: @Model.Genre</p>
+<p>Published Year: @Model.PublishedYear</p>
+
+@if (Model.IsReserved)
+{
+    <p><strong>This book is reserved.</strong></p>
+
+    @if (Model.ReservedByUserId == ViewBag.UserId)
+    {
+        <form asp-action="CancelReservation" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Cancel Reservation" class="btn btn-warning" />
+        </form>
+    }
+}
+else
+{
+    <form asp-action="Reserve" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Reserve Book" class="btn btn-primary" />
+    </form>
+}
+
+<a asp-action="Index">Back to List</a>

@@ -1,0 +1,18 @@
+﻿@model BibliotekosValdymoSistema.Models.Book
+
+@{
+    ViewData["Title"] = "Delete Book";
+}
+
+<h2>Delete Book</h2>
+
+<h3>Are you sure you want to delete this book?</h3>
+
+<form asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</form>
